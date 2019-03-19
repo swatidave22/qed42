@@ -1,0 +1,6 @@
+name = Custom Entity
+description = Custom Entity module is use for add new entity
+core = 7.x
+
+
+files[] = include/CityMetadataController.php

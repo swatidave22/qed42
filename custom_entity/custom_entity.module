@@ -1,0 +1,91 @@
+<?php
+
+
+function custom_entity_entity_info() {
+
+  $return = array(
+    'cities' => array(
+      'label' => t('Task'),
+      'entity class' => 'ExampleTask',
+      'base table' => 'cities',
+      'fieldable' => TRUE,
+      'entity keys' => array(
+      	'id' => 'city_id',
+      	'bundle' => 'city_name',
+      ),
+      'view modes' => array(
+	      'full' => array(
+	        'label' => t('Default'),
+	        'custom settings' => FALSE,
+	      ),
+	    ),
+      'bundle keys' => array(
+        'bundle' => 'city_name',
+      ),
+      
+      'label callback' => 'entity_class_label',
+      'uri callback' => 'entity_class_uri',
+      'bundles' => array(),
+      'load hook' => 'cities_load',
+      'metadata controller class' => 'CityMetadataController',
+      'views controller class' => 'EntityDefaultViewsController',
+      'entity class' => 'Entity',
+	  'controller class' => 'EntityAPIController',
+
+     ),
+  );
+
+
+  return $return;
+}
+
+
+
+/**
+ * Loads a citie by ID.
+ */
+function cities_load($city_id) {
+  if (empty($city_id)) {
+    return FALSE;
+  }
+  $city = cities_load_multiple(array($city_id), array());
+  return $city ? reset($city) : FALSE;
+}
+/**
+ * Loads multiple city by ID or based on a set of matching conditions.
+ */
+function cities_load_multiple($city_id = array(), $conditions = array(), $reset = FALSE) {
+  if (empty($citie_id) && empty($conditions)) {
+    return array();
+  }
+  return entity_load('cities', $city_id, $conditions, $reset);
+}
+
+/**
+ * Returns an initialized citie object. Used to create an entity of type cities.
+ */
+function cities_new() {
+  return entity_get_controller('cities')->create();
+}
+
+
+function custom_entity_form_alter(&$form, &$form_state, $form_id) {
+//we can view list of entity
+//$projects = entity_load('cities');	//testing with creating new entity
+//var_dump($projects);die;
+
+  //for insert data
+//entity_test1();
+
+}
+function entity_test1(){
+ $training  = cities_new(); //an object for the entity cities is created
+ 
+$training->city_name = 'training_title';
+$training->loc = 'asd';
+$training->pop = 2;
+$training->state = 'main'; // set the bundle
+
+entity_save('cities', $training);
+
+}

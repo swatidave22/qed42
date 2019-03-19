@@ -1,0 +1,50 @@
+<?php 
+/**
+ * @file
+ * Install, update and uninstall functions for the node module.
+ *
+ * Implements hook_schema().
+ */
+function custom_entity_schema() {
+  $schema['cities'] = array(
+    'description' => 'The table for cities data.',
+    'fields' => array(
+      'city_id' => array(
+        'description' => 'city uniqid.',
+        'type' => 'serial',
+        'unsigned' => TRUE,
+        'not null' => TRUE,
+      ),
+     'city_name' => array(
+        'description' => 'city name.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+     'loc' => array(
+        'description' => 'location detail.',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      ),
+      'pop' => array(
+        'description' => 'pincode no.',
+        'type' => 'int',
+        'not null' => TRUE,
+        'default' => 0,
+      ),
+     'state' => array(
+        'description' => 'state name',
+        'type' => 'varchar',
+        'length' => 255,
+        'not null' => TRUE,
+        'default' => '',
+      )
+    ),
+    'primary key' => array('city_id'),
+  );
+ 
+  return $schema;
+}
